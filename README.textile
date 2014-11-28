@@ -1,4 +1,4 @@
-h1. Fast GPIO Arduino Libary
+h1. FastGPIO library for Arduino
 
 Version: 1.0.0
 Release date: 2014-12-01

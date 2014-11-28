@@ -1,19 +1,70 @@
-/* FastGPIO - C++ header library for efficient AVR I/O
+/*! \file FastGPIO.h
+
+FastGPIO is a C++ header library for efficient AVR I/O.
+
 Copyright (C) 2014 Pololu Corporation - see LICENSE.txt for details
-Origin: https://github.com/pololu/fastgpio-arduino
+
+For an overview of the features of this library, see
+https://github.com/pololu/fastgpio-arduino.
+That is the main repository for this library, though copies may exist in other
+repositories.
+
+You will need a basic understanding of microcontroller I/O pins in order to use
+ths library.  General information on this topic can be found in the Arduino [Digital Pins tutorial](http://arduino.cc/en/Tutorial/DigitalPins).
+
+The FastGPIO::Pin class provides static functions for manipulating pins.  See
+its class reference for more information.
+
+\class FastGPIO::Pin
+
+@tparam pin The pin number
+
+The FastGPIO::Pin class provides static functions for manipulating pins.  This
+class can only be used if the pin number is known at compile time, which means
+it does not come from a variable that might change and it does not come from the
+result of a complicated calculation.
+
+Here is some example code showing how to use this class to blink an LED:
+
+~~~{.cpp}
+#include <FastGPIO.h>
+
+#define LED_PIN 13
+
+void setup() {
+}
+
+void loop() {
+  FastGPIO::Pin<LED_PIN>::setOutput(0);
+  delay(500);
+  FastGPIO::Pin<LED_PIN>::setOutput(1);
+  delay(500);
+}
+~~~
+
 */
 
 #pragma once
 #include <avr/io.h>
 #include <stdint.h>
 
+/** @cond */
 #define _FG_SBI(mem_addr, bit) asm volatile("sbi %0, %1\n" : \
     : "I" (mem_addr - __SFR_OFFSET), "I" (bit))
 #define _FG_CBI(mem_addr, bit) asm volatile("cbi %0, %1\n" : \
     : "I" (mem_addr - __SFR_OFFSET), "I" (bit))
+#define _FG_PIN(port, bit) { _SFR_MEM_ADDR(PIN##port), _SFR_MEM_ADDR(PORT##port), \
+     _SFR_MEM_ADDR(DDR##port), bit }
+/** @endcond */
 
 namespace FastGPIO
 {
+    /** @cond */
+    /** The IOStruct struct and the pinStructs array below are not documented in
+     * the Doxygen documentation, but can be used by advanced users of this
+     * library and are considered to be part of the public API for the purposes
+     * of semantic versioning.
+     */
     typedef struct IOStruct
     {
         uint8_t pinAddr;
@@ -36,11 +87,9 @@ namespace FastGPIO
             return (volatile uint8_t *)ddrAddr;
         }
     } IOStruct;
+    /** @endcond */
 
-#define _FG_PIN(port, bit) { _SFR_MEM_ADDR(PIN##port), _SFR_MEM_ADDR(PORT##port), \
-     _SFR_MEM_ADDR(DDR##port), bit }
-
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P) || defined(__AVR_ATmega328) || defined(__AVR_ATmega328P__)
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P) || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
 
     const IOStruct pinStructs[] = {
         _FG_PIN(D, 0),
@@ -177,40 +226,88 @@ namespace FastGPIO
     template<uint8_t pin> class Pin
     {
     public:
+        /*! \brief Configures the pin to be an output driving low.
+         *
+         * This is equivalent to calling setOutput with an argument of 0,
+         * but it has a simpler implementation which means it is more
+         * likely to be compiled down to just 2 assembly instructions.
+         */
         static inline void setOutputLow() __attribute__((always_inline))
         {
             _FG_CBI(pinStructs[pin].portAddr, pinStructs[pin].bit);
             _FG_SBI(pinStructs[pin].ddrAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Configures the pin to be an output driving high.
+         *
+         * This is equivalent to calling setOutput with an argument of 1,
+         * but it has a simpler implementation which means it is more
+         * likely to be compiled down to just 2 assembly instructions.
+         */
         static inline void setOutputHigh() __attribute__((always_inline))
         {
             _FG_SBI(pinStructs[pin].portAddr, pinStructs[pin].bit);
             _FG_SBI(pinStructs[pin].ddrAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Configures the pin to be an output and toggles it.
+         */
         static inline void setOutputToggle() __attribute__((always_inline))
         {
             setOutputValueToggle();
             _FG_SBI(pinStructs[pin].ddrAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Sets the pin as an output.
+         *
+         * @param value Should be 0, LOW, or false to drive the pin low.  Should
+         * be 1, HIGH, or true to drive the pin high.
+         *
+         * The PORT bit is set before the DDR bit to ensure that the output is
+         * not accidentally driven to the wrong value during the transition.
+         */
         static inline void setOutput(bool value) __attribute__((always_inline))
         {
             setOutputValue(value);
             _FG_SBI(pinStructs[pin].ddrAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Sets the output value of the pin to 0.
+         *
+         * This is mainly intended to be used on pins that have already been
+         * configured as an output in order to make the output drive low.
+         *
+         * If this is used on an input pin, it has the effect of disabling the
+         * input pin's pull-up resistor.
+         */
         static inline void setOutputValueLow() __attribute__((always_inline))
         {
             _FG_CBI(pinStructs[pin].portAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Sets the output value of the pin to 1.
+         *
+         * This is mainly intended to be used on pins that have already been
+         * configured as an output in order to make the output drive low.
+         *
+         * If this is used on an input pin, it has the effect of enabling the
+         * input pin's pull-up resistor.
+         */
         static inline void setOutputValueHigh() __attribute__((always_inline))
         {
             _FG_SBI(pinStructs[pin].portAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Toggles the output value of the pin.
+         *
+         * This is mainly intended to be used on pins that have already been
+         * configured as an output.  If the pin was driving low, this function
+         * changes it to drive high.  If the pin was driving high, this function
+         * changes it to drive low.
+         *
+         * If this function is used on an input pin, it has the effect of
+         * toggling the state of the input pin's pull-up resistor.
+         */
         static inline void setOutputValueToggle() __attribute__((always_inline))
         {
             asm volatile(
@@ -224,6 +321,17 @@ namespace FastGPIO
                   "I" (pinStructs[pin].portAddr - __SFR_OFFSET));
         }
 
+        /*! \brief Sets the output value of the pin.
+         *
+         * @param value Should be 0, LOW, or false to drive the pin low.  Should
+         * be 1, HIGH, or true to drive the pin high.
+         *
+         * This is mainly intended to be used on pins that have already been
+         * configured as an output.
+         *
+         * If this function is used on an input pin, it has the effect of
+         * toggling setting the state of the input pin's pull-up resistor.
+         */
         static inline void setOutputValue(bool value) __attribute__((always_inline))
         {
             if (value)
@@ -236,23 +344,32 @@ namespace FastGPIO
             }
         }
 
+        /*! \brief Sets a pin to be a digital input without a pull-up resistor.
+         */
         static inline void setInput() __attribute__((always_inline))
         {
             _FG_CBI(pinStructs[pin].ddrAddr, pinStructs[pin].bit);
             _FG_CBI(pinStructs[pin].portAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Sets a pin to be a digital input with a pull-up resistor.
+         */
         static inline void setInputPulledUp() __attribute__((always_inline))
         {
             _FG_CBI(pinStructs[pin].ddrAddr, pinStructs[pin].bit);
             _FG_SBI(pinStructs[pin].portAddr, pinStructs[pin].bit);
         }
 
+        /*! \brief Reads the input value of the pin.
+         *
+         * @return 0 if the pin is low, 1 if the pin is high.
+         */
         static inline bool isInputHigh() __attribute__((always_inline))
         {
             return *pinStructs[pin].pin() >> pinStructs[pin].bit & 1;
 
-            /** This is another option but it is sometimes less efficient:
+            /* This is another option but it is less efficient in code
+               like "if (isInputHigh()) { ... }":
             bool value;
             asm volatile(
                 "ldi %0, 0\n"
@@ -262,19 +379,35 @@ namespace FastGPIO
                 : "I" (pinStructs[pin].bit),
                   "I" (pinStructs[pin].pinAddr - __SFR_OFFSET));
             return value;
-            **/
+            */
         }
 
+        /*! \brief Returns 1 if the pin is configured as an output.
+         *
+         * @return 1 if the pin is an output, 0 if it is an input.
+         */
         static inline bool isOutput() __attribute__((always_inline))
         {
             return *pinStructs[pin].ddr() >> pinStructs[pin].bit & 1;
         }
 
-        static inline bool getOutputValue() __attribute__((always_inline))
+        /*! \brief Returns the output value of the pin.
+         *
+         * This is mainly intended to be called on pins that have been
+         * configured an an output.  If it is called on an input pin, the return
+         * value indicates whether the pull-up resistor is enabled or not.
+         */
+        static inline bool isOutputValueHigh() __attribute__((always_inline))
         {
             return *pinStructs[pin].port() >> pinStructs[pin].bit & 1;
         }
 
+        /*! \brief Returns the full 2-bit state of the pin.
+         *
+         * Bit 0 of this function's return value is the pin's output value.
+         * Bit 1 of the return value is the pin direction; a value of 1
+         * means output.  All the other bits are zero.
+         */
         static uint8_t getState()
         {
             uint8_t state;
@@ -290,27 +423,25 @@ namespace FastGPIO
                   "I" (pinStructs[pin].ddrAddr - __SFR_OFFSET));
             return state;
 
-            /** Equivalent C++ code:
-              return isOutput() << 1 | getOutputValue();
-            **/
+            /* Equivalent C++ code:
+              return isOutput() << 1 | isOutputValueHigh();
+            */
         }
 
+        /*! \brief Sets the full 2-bit state of the pin.
+         *
+         * @param state The state of the pin, as returns from getState.
+         * All bits other than bits 0 and 1 are ignored.
+         *
+         * Sometimes this function will need to change both the PORT bit (which
+         * specifies the output value) and the DDR bit (which specifies whether
+         * the pin is an output).  If the DDR bit is getting set to 0, this
+         * function changes DDR first, and if it is getting set to 1, this
+         * function changes DDR last.  This guarantees that the intermediate pin
+         * state is always an input state.
+         */
         static void setState(uint8_t state)
         {
-            // Sometimes both the PORT bit and the DDR bit will need
-            // to change, so we should think carefully about what
-            // order we set them.  Our plan is that if DDR is getting set to 0,
-            // we will do that first, and if it is getting set to 1, we will do that
-            // last.  This guarantees that the intermediate state is always in input.
-            //
-            // This table shows the possible transitions if both bits are changing:
-            //
-            // Current State    |  Intermediate State  |  Final State
-            // Output low       |  Input               |  Input pulled up
-            // Output high      |  Input pulled up     |  Input
-            // Input            |  Input pulled up     |  Output high
-            // Input pulled up  |  Input               |  Output low
-
             asm volatile(
                 "bst  %0, 1\n"   // Set DDR to 0 if needed
                 "brts .+2\n"
@@ -331,9 +462,45 @@ namespace FastGPIO
         }
     };
 
+    /*! This class saves the state of the specified pin in its constructor when
+     * it is created, and restores the pin to that state in its destructor.
+     * This can be very useful if a pin is being used for multiple purposes.
+     * It allows you to write code that temporarily changes the state of the
+     * pin and is guaranteed to restore the state later.
+     *
+     * For example, if you were controlling both a button and an LED using a
+     * single pin and you wanted to see if the button was pressed without
+     * affecting the LED, you could write:
+     *
+     * ~~~{.cpp}
+     * bool buttonIsPressed()
+     * {
+     *     FastGPIO::PinLoan<IO_D5> loan;
+     *     FastGPIO::Pin<IO_D5>::setInputPulledUp();
+     *     _delay_us(10);
+     *     return !FastGPIO::Pin<FASTGPIO_PD5>::isInputHigh();
+     * }
+     * ~~~
+     *
+     * This is equivalent to:
+     *
+     * ~~~{.cpp}
+     * bool buttonIsPressed()
+     * {
+     *     uint8_t state = FastGPIO::Pin<IO_D5>::getState();
+     *     FastGPIO::Pin<IO_D5>::setInputPulledUp();
+     *     _delay_us(10);
+     *     bool value = !FastGPIO::Pin<FASTGPIO_PD5>::isInputHigh();
+     *     FastGPIO::Pin<IO_D5>::setState(state);
+     *     return value;
+     * }
+     * ~~~
+     *
+     */
     template<uint8_t pin> class PinLoan
     {
     public:
+        /*! \brief The state of the pin as returned from FastGPIO::Pin::getState. */
         uint8_t state;
 
         PinLoan()
