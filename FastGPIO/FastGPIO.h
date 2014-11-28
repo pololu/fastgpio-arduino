@@ -495,7 +495,6 @@ namespace FastGPIO
      *     return value;
      * }
      * ~~~
-     *
      */
     template<uint8_t pin> class PinLoan
     {
