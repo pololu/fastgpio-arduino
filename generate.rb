@@ -2,15 +2,24 @@
 
 class PinConfig
   attr_reader :name
+  attr_reader :pin_list
 
   def initialize(pin_list_str)
     @pin_list = pin_list_str.split.map { |s| { port: s[0], bit: s[1].to_i } }
   end
 
   def macros
-    r = ''
+    h = {}
     each_pin do |num, port, bit|
-      r << "#define IO_#{port}#{bit} #{num}\n"
+      h["IO_#{port}#{bit}"] = num
+    end
+    h
+  end
+
+  def macro_definitions
+    r = ''
+    macros.each do |name, num|
+      r << "#define #{name} #{num}\n"
     end
     r
   end
@@ -43,6 +52,16 @@ END
       yield num, pin.fetch(:port), pin.fetch(:bit)
     end
   end
+end
+
+def keywords(pin_configs)
+  r = ''
+  pin_keywords = pin_configs.flat_map { |c| c.macros.keys }.uniq.sort
+  pin_keywords.each do |pin_keyword|
+    r << (pin_keyword + "\tLITERAL1\n")
+  end
+  r << "IO_NONE\tLITERAL1\n"
+  r
 end
 
 leonardo = PinConfig.new <<END
@@ -107,7 +126,7 @@ C7
 END
 
 #puts leonardo.macros
+#puts uno.table
+#puts leonardo.table
 
-puts uno.table
-puts
-puts leonardo.table
+puts keywords([leonardo, uno])
