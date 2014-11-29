@@ -25,6 +25,19 @@ class PinConfig
     r
   end
 
+  def table
+    r = ''
+    r << <<END
+<table>
+<tr><th>Number</th><th>AVR pin macro</th><th>Alternative name</th></tr>
+END
+    each_pin do |num, port, bit|
+      r << "<tr><td>#{num}</td><td>IO_#{port}#{bit}</td><td></td></tr>\n"
+    end
+    r << '</table>'
+    r
+  end
+
   def each_pin
     @pin_list.each_with_index do |pin, num|
       yield num, pin.fetch(:port), pin.fetch(:bit)
@@ -95,5 +108,6 @@ END
 
 #puts leonardo.macros
 
-puts uno.macros
-puts uno.array
+puts uno.table
+puts
+puts leonardo.table

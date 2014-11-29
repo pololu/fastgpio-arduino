@@ -9,9 +9,6 @@ https://github.com/pololu/fastgpio-arduino.
 That is the main repository for this library, though copies may exist in other
 repositories.
 
-You will need a basic understanding of microcontroller I/O pins in order to use
-ths library.  General information on this topic can be found in the Arduino [Digital Pins tutorial](http://arduino.cc/en/Tutorial/DigitalPins).
-
 The FastGPIO::Pin class provides static functions for manipulating pins.  See
 its class reference for more information.
 
@@ -209,12 +206,6 @@ namespace FastGPIO
 #define IO_F4 21
 #define IO_F1 22
 #define IO_F0 23
-#define IO_D4 24
-#define IO_D7 25
-#define IO_B4 26
-#define IO_B5 27
-#define IO_B6 28
-#define IO_D6 29
 #define IO_D5 30
 #define IO_E2 31
 #define IO_NONE 32
@@ -344,7 +335,8 @@ namespace FastGPIO
             }
         }
 
-        /*! \brief Sets a pin to be a digital input without a pull-up resistor.
+        /*! \brief Sets a pin to be a digital input with the internal pull-up
+         *  resistor disabled.
          */
         static inline void setInput() __attribute__((always_inline))
         {
@@ -352,7 +344,8 @@ namespace FastGPIO
             _FG_CBI(pinStructs[pin].portAddr, pinStructs[pin].bit);
         }
 
-        /*! \brief Sets a pin to be a digital input with a pull-up resistor.
+        /*! \brief Sets a pin to be a digital input with the internal pull-up
+         *  resistor enabled.
          */
         static inline void setInputPulledUp() __attribute__((always_inline))
         {
