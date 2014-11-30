@@ -1,8 +1,8 @@
+// Copyright (C) 2014 Pololu Corporation - see LICENSE.txt for details.
+
 /*! \file FastGPIO.h
 
 FastGPIO is a C++ header library for efficient AVR I/O.
-
-Copyright (C) 2014 Pololu Corporation - see LICENSE.txt for details
 
 For an overview of the features of this library, see
 https://github.com/pololu/fastgpio-arduino.
