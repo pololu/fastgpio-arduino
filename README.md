@@ -29,6 +29,10 @@ This library is designed to work with the Arduino IDE versions 1.0.x and 1.5.x, 
 
 This library currently supports any board based on the ATmega32U4 or ATmega328P.
 
+## Getting started
+
+Download the [fastgpio-arduino library from github](http://pololu.github.io/), decompress it, and drag the "FastGPIO" folder into the "libraries" subdirectory inside your Arduino sketchbook directory.  You can view your sketchbook location by selecting File->Preferences in the Arduino environment; if there is not already a "libraries" folder in that location, you should create it yourself.  After installing the library, restart the Arduino environment.  Example code for using this library can be found in the File->Examples menu.
+
 ## Specifying a pin
 
 There are three ways to specify a pin:
