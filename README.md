@@ -1,7 +1,7 @@
 # FastGPIO library for Arduino
 
 Version: 1.0.0<br/>
-Release date: 2014 Dec 09<br/>
+Release date: 2014 Dec 11<br/>
 [www.pololu.com](http://www.pololu.com/)
 
 ## Summary
@@ -176,4 +176,4 @@ For complete documentation of this library, including many features that were no
 
 ## Version history
 
-* 1.0.0 (2014 Dec 09): Original release.
+* 1.0.0 (2014 Dec 11): Original release.
