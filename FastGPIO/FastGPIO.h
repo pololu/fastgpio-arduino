@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Pololu Corporation - see LICENSE.txt for details.
+// Copyright Pololu Corporation.  For more information, see http://www.pololu.com/
 
 /*! \file FastGPIO.h
 
