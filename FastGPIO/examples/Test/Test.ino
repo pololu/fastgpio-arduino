@@ -8,7 +8,7 @@ avr-objdump -D *.elf > ~/disasm.txt
 The desired assembly listed here assumes you are compiling for an
 ATmega32U4; if you are using a different chip then the register and
 bit numbers will be different but the instruction opcodes should
-still be the sam.e
+still be the same.
 */
 
 #include <FastGPIO.h>
