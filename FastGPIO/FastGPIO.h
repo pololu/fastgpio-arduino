@@ -301,15 +301,7 @@ namespace FastGPIO
          */
         static inline void setOutputValueToggle() __attribute__((always_inline))
         {
-            asm volatile(
-                "sbic %1, %0\n"
-                "rjmp .+4\n"
-                "sbi  %1, %0\n"
-                "rjmp .+2\n"
-                "cbi  %1, %0\n"
-                :
-                : "I" (pinStructs[pin].bit),
-                  "I" (pinStructs[pin].portAddr - __SFR_OFFSET));
+            _FG_SBI(pinStructs[pin].pinAddr, pinStructs[pin].bit);
         }
 
         /*! \brief Sets the output value of the pin.

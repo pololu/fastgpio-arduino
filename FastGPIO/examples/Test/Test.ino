@@ -38,11 +38,7 @@ void testOutputHigh()
 }
 
 /* Desired assembly:
-  sbic  0x0b, 3
-  rjmp  .+4
-  sbi   0x0b, 3
-  rjmp  .+2
-  cbi   0x0b, 3
+  sbi   0x09, 3
   sbi   0x0a, 3
 */
 void testOutputToggle() __attribute__((noinline));
@@ -95,11 +91,7 @@ void testOutputValueHigh()
 
 /*
 Desired assembly:
-  sbic 0x0b, 3
-  rjmp .+4
-  sbi  0x0b, 3
-  rjmp .+2
-  cbi  0x0b
+  sbi   0x09, 3
 */
 void testOutputValueToggle() __attribute__((noinline));
 void testOutputValueToggle()
