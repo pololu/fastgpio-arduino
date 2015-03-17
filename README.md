@@ -1,7 +1,7 @@
 # FastGPIO library for Arduino
 
-Version: 1.0.1<br/>
-Release date: 2015 Jan 06<br/>
+Version: 1.0.2<br/>
+Release date: 2015 Mar 16<br/>
 [www.pololu.com](http://www.pololu.com/)
 
 ## Summary
@@ -25,7 +25,7 @@ The Arduino GPIO functions automatically turn off a pin's PWM function when acce
 
 ## Supported platforms
 
-This library is designed to work with the Arduino IDE versions 1.0.x and 1.5.x, and will probably not work with earlier versions.
+This library is designed to work with the Arduino IDE versions 1.0.x, 1.5.x, and 1.6.x, and will probably not work with earlier versions.
 
 This library currently supports any board based on the ATmega32U4 or ATmega328P.
 
@@ -176,5 +176,6 @@ For complete documentation of this library, including many features that were no
 
 ## Version history
 
+* 1.0.2 (2015 Mar 16): Improved the speed of toggling a pin's output value.
 * 1.0.1 (2015 Jan 06): Introduced some casts to fix compiler warnings.
 * 1.0.0 (2014 Dec 11): Original release.
