@@ -463,7 +463,7 @@ namespace FastGPIO
      *     FastGPIO::PinLoan<IO_D5> loan;
      *     FastGPIO::Pin<IO_D5>::setInputPulledUp();
      *     _delay_us(10);
-     *     return !FastGPIO::Pin<FASTGPIO_PD5>::isInputHigh();
+     *     return !FastGPIO::Pin<IO_D5>::isInputHigh();
      * }
      * ~~~
      *
@@ -475,7 +475,7 @@ namespace FastGPIO
      *     uint8_t state = FastGPIO::Pin<IO_D5>::getState();
      *     FastGPIO::Pin<IO_D5>::setInputPulledUp();
      *     _delay_us(10);
-     *     bool value = !FastGPIO::Pin<FASTGPIO_PD5>::isInputHigh();
+     *     bool value = !FastGPIO::Pin<IO_D5>::isInputHigh();
      *     FastGPIO::Pin<IO_D5>::setState(state);
      *     return value;
      * }
