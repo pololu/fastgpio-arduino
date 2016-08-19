@@ -1,8 +1,9 @@
 # FastGPIO library for Arduino
 
-Version: 1.0.2<br/>
-Release date: 2015 Mar 16<br/>
-[www.pololu.com](http://www.pololu.com/)
+Version: 2.0.0 <br>
+Release date: 2016-08-19 <br>
+[![Build Status](https://travis-ci.org/pololu/fastgpio-arduino.svg?branch=master)](https://travis-ci.org/pololu/fastgpio-arduino) <br>
+[www.pololu.com](https://www.pololu.com/)
 
 ## Summary
 
@@ -17,7 +18,7 @@ This library is intended to be a replacement for the default Arduino I/O functio
 * Pins can be specified either by their AVR pin name or their Arduino pin name.
 * Supports pins PD5 and PE2 on the ATmega32U4; these pins do not have an official Arduino pin number so they cannot be used with the default Arduino I/O functions.
 
-To use this library, you will need a basic understanding of microcontroller I/O pins.  General information on this topic can be found in the Arduino [Digital Pins tutorial](http://arduino.cc/en/Tutorial/DigitalPins).
+To use this library, you will need a basic understanding of microcontroller I/O pins.  General information on this topic can be found in the Arduino [Digital Pins tutorial](https://arduino.cc/en/Tutorial/DigitalPins).
 
 Currently, this library requires that the pin number you specify must be known at compile time.  This means the pin number cannot come from a variable that might change and it cannot be the result of a complicated calculation.  This allows the compiler to generate optimal code for manipulating that pin.
 
@@ -31,7 +32,30 @@ This library currently supports any board based on the ATmega32U4 or ATmega328P.
 
 ## Getting started
 
-Download the [fastgpio-arduino library from GitHub](https://github.com/pololu/fastgpio-arduino/), decompress it, and drag the "FastGPIO" folder into the "libraries" subdirectory inside your Arduino sketchbook directory.  You can view your sketchbook location by selecting File->Preferences in the Arduino environment.  If there is not already a "libraries" folder in that location, you should create it yourself.  After installing the library, restart the Arduino environment.  Example code for using this library can be found in the File->Examples menu.
+### Software
+
+If you are using version 1.6.2 or later of the
+[Arduino software (IDE)](https://www.arduino.cc/en/Main/Software), you can use
+the Library Manager to install this library:
+
+1. In the Arduino IDE, open the "Sketch" menu, select "Include Library", then
+   "Manage Libraries...".
+2. Search for "FastGPIO".
+3. Click the FastGPIO entry in the list.
+4. Click "Install".
+
+If this does not work, you can manually install the library:
+
+1. Download the
+   [latest release archive from GitHub](https://github.com/pololu/fastgpio-arduino/releases)
+   and decompress it.
+2. Rename the folder "fastgpio-arduino-xxxx" to "FastGPIO".
+3. Drag the "FastGPIO" folder into the "libraries" directory inside your
+   Arduino sketchbook directory. You can view your sketchbook location by
+   opening the "File" menu and selecting "Preferences" in the Arduino IDE. If
+   there is not already a "libraries" folder in that location, you should make
+   the folder yourself.
+4. After installing the library, restart the Arduino IDE.
 
 ## Specifying a pin
 
@@ -176,6 +200,7 @@ For complete documentation of this library, including many features that were no
 
 ## Version history
 
-* 1.0.2 (2015 Mar 16): Improved the speed of toggling a pin's output value.
-* 1.0.1 (2015 Jan 06): Introduced some casts to fix compiler warnings.
-* 1.0.0 (2014 Dec 11): Original release.
+* 2.0.0 (2016-08-19): Updated library to work with the Arduino Library Manager.
+* 1.0.2 (2015-03-16): Improved the speed of toggling a pin's output value.
+* 1.0.1 (2015-01-06): Introduced some casts to fix compiler warnings.
+* 1.0.0 (2014-12-11): Original release.
