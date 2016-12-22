@@ -16,7 +16,6 @@ This library is intended to be a replacement for the default Arduino I/O functio
 * Never disables interrupts.
 * Supports reading and restoring the state of a pin, which is useful if the pin is used for multiple purposes.
 * Pins can be specified either by their AVR pin name or their Arduino pin name.
-* Supports pins PD5 and PE2 on the ATmega32U4; these pins do not have an official Arduino pin number so they cannot be used with the default Arduino I/O functions.
 
 To use this library, you will need a basic understanding of microcontroller I/O pins.  General information on this topic can be found in the Arduino [Digital Pins tutorial](https://arduino.cc/en/Tutorial/DigitalPins).
 
