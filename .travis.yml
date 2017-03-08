@@ -13,6 +13,7 @@ env:
 - BOARD=micro
 
 script:
-- for e in examples/*; do
+- set -eo pipefail;
+  for e in examples/*; do
     platformio ci --board=$BOARD --lib=. $e/*;
   done
