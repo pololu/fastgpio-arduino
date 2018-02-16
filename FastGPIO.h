@@ -86,7 +86,7 @@ namespace FastGPIO
     } IOStruct;
     /** @endcond */
 
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+#if defined(__AVR_ATmega328PB__) || defined(AVR_A_STAR_328PB)
 
     const IOStruct pinStructs[] = {
         _FG_PIN(D, 0),
@@ -109,7 +109,65 @@ namespace FastGPIO
         _FG_PIN(C, 3),
         _FG_PIN(C, 4),
         _FG_PIN(C, 5),
-        _FG_PIN(C, 6),
+        _FG_PIN(E, 2),
+        _FG_PIN(E, 3),
+        _FG_PIN(E, 0),
+        _FG_PIN(E, 1),
+        _FG_PIN(C, 6), // RESET
+        _FG_PIN(C, 7), // Null pin (IO_NONE)
+    };
+
+#define IO_D0 0
+#define IO_D1 1
+#define IO_D2 2
+#define IO_D3 3
+#define IO_D4 4
+#define IO_D5 5
+#define IO_D6 6
+#define IO_D7 7
+#define IO_B0 8
+#define IO_B1 9
+#define IO_B2 10
+#define IO_B3 11
+#define IO_B4 12
+#define IO_B5 13
+#define IO_C0 14
+#define IO_C1 15
+#define IO_C2 16
+#define IO_C3 17
+#define IO_C4 18
+#define IO_C5 19
+#define IO_E2 20
+#define IO_E3 21
+#define IO_E0 22
+#define IO_E1 23
+#define IO_C6 24
+#define IO_NONE 25
+
+#elif defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+
+    const IOStruct pinStructs[] = {
+        _FG_PIN(D, 0),
+        _FG_PIN(D, 1),
+        _FG_PIN(D, 2),
+        _FG_PIN(D, 3),
+        _FG_PIN(D, 4),
+        _FG_PIN(D, 5),
+        _FG_PIN(D, 6),
+        _FG_PIN(D, 7),
+        _FG_PIN(B, 0),
+        _FG_PIN(B, 1),
+        _FG_PIN(B, 2),
+        _FG_PIN(B, 3),
+        _FG_PIN(B, 4),
+        _FG_PIN(B, 5),
+        _FG_PIN(C, 0),
+        _FG_PIN(C, 1),
+        _FG_PIN(C, 2),
+        _FG_PIN(C, 3),
+        _FG_PIN(C, 4),
+        _FG_PIN(C, 5),
+        _FG_PIN(C, 6), // RESET
         _FG_PIN(C, 7), // Null pin (IO_NONE)
     };
 
