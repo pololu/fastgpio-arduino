@@ -86,7 +86,7 @@ namespace FastGPIO
     } IOStruct;
     /** @endcond */
 
-#if defined(__AVR_ATmega328PB__) || defined(AVR_A_STAR_328PB)
+#if defined(__AVR_ATmega328PB__) || defined(ARDUINO_AVR_A_STAR_328PB)
 
     const IOStruct pinStructs[] = {
         _FG_PIN(D, 0),
