@@ -73,7 +73,7 @@ For a full list of all the supported pins, see the "Pin number reference" sectio
 This example shows how to set pin 13 as an output and drive it high:
 
 ~~~{.cpp}
-FastGPIO::Pin<13>::setOutput(HIGH)
+FastGPIO::Pin<13>::setOutput(HIGH);
 ~~~
 
 ## Digital inputs
@@ -93,7 +93,7 @@ FastGPIO::Pin<12>::setInputPulledUp();
 Then, to read the value of the input, you can use:
 
 ~~~{.cpp}
-bool inputHigh = FastGPIO::Pin<12>::isInputHigh()
+bool inputHigh = FastGPIO::Pin<12>::isInputHigh();
 ~~~
 
 ## Pin number reference
