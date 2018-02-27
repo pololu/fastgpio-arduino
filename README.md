@@ -122,7 +122,7 @@ bool inputHigh = FastGPIO::Pin<12>::isInputHigh()
 <tr><td>17</td><td>IO_C3</td><td>A3</td></tr>
 <tr><td>18</td><td>IO_C4</td><td>A4, SDA</td></tr>
 <tr><td>19</td><td>IO_C5</td><td>A5, SCL</td></tr>
-<tr><td>20</td><td>IO_C6</td><td>A6, </td></tr>
+<tr><td>20</td><td>IO_C6</td><td></td></tr>
 </table>
 
 ### Pins for ATmega32U4 boards
