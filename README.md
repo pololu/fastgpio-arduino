@@ -1,7 +1,7 @@
 # FastGPIO library for Arduino
 
-Version: 2.0.0 <br>
-Release date: 2016-08-19 <br>
+Version: 2.1.0 <br>
+Release date: 2018-02-27 <br>
 [![Build Status](https://travis-ci.org/pololu/fastgpio-arduino.svg?branch=master)](https://travis-ci.org/pololu/fastgpio-arduino) <br>
 [www.pololu.com](https://www.pololu.com/)
 
@@ -25,9 +25,9 @@ The Arduino GPIO functions automatically turn off a pin's PWM function when acce
 
 ## Supported platforms
 
-This library is designed to work with the Arduino IDE versions 1.0.x, 1.5.x, and 1.6.x, and will probably not work with earlier versions.
+This library is designed to work with the Arduino IDE versions 1.0.x, 1.5.x, 1.6.x, and later, and will probably not work with earlier versions.
 
-This library currently supports any board based on the ATmega32U4 or ATmega328P.
+This library currently supports any board based on the ATmega328PB, ATmega328P, or ATmega32U4.
 
 ## Getting started
 
@@ -97,6 +97,38 @@ bool inputHigh = FastGPIO::Pin<12>::isInputHigh()
 ~~~
 
 ## Pin number reference
+
+### Pins for ATmega328PB boards
+
+<table>
+<tr><th>Number</th><th>AVR pin macro</th><th>Alternative name</th></tr>
+<tr><td>0</td><td>IO_D0</td><td></td></tr>
+<tr><td>1</td><td>IO_D1</td><td></td></tr>
+<tr><td>2</td><td>IO_D2</td><td></td></tr>
+<tr><td>3</td><td>IO_D3</td><td></td></tr>
+<tr><td>4</td><td>IO_D4</td><td></td></tr>
+<tr><td>5</td><td>IO_D5</td><td></td></tr>
+<tr><td>6</td><td>IO_D6</td><td></td></tr>
+<tr><td>7</td><td>IO_D7</td><td></td></tr>
+<tr><td>8</td><td>IO_B0</td><td></td></tr>
+<tr><td>9</td><td>IO_B1</td><td></td></tr>
+<tr><td>10</td><td>IO_B2</td><td>SS</td></tr>
+<tr><td>11</td><td>IO_B3</td><td>MOSI</td></tr>
+<tr><td>12</td><td>IO_B4</td><td>MISO</td></tr>
+<tr><td>13</td><td>IO_B5</td><td>SCK</td></tr>
+<tr><td>14</td><td>IO_C0</td><td>A0</td></tr>
+<tr><td>15</td><td>IO_C1</td><td>A1</td></tr>
+<tr><td>16</td><td>IO_C2</td><td>A2</td></tr>
+<tr><td>17</td><td>IO_C3</td><td>A3</td></tr>
+<tr><td>18</td><td>IO_C4</td><td>A4, SDA, SDA0</td></tr>
+<tr><td>19</td><td>IO_C5</td><td>A5, SCL, SCL0</td></tr>
+<tr><td>20</td><td>IO_E2</td><td>A6</td></tr>
+<tr><td>21</td><td>IO_E3</td><td>A7</td></tr>
+<tr><td>22</td><td>IO_E0</td><td>SDA1</td>
+<tr><td>23</td><td>IO_E1</td><td>SCL1</td>
+<tr><td>24</td><td>IO_C6</td><td></td></tr>
+</table>
+
 
 ### Pins for ATmega328P boards
 
@@ -199,6 +231,7 @@ For complete documentation of this library, including many features that were no
 
 ## Version history
 
+* 2.1.0 (2018-02-27): Added support for the ATmega328PB.
 * 2.0.0 (2016-08-19): Updated library to work with the Arduino Library Manager.
 * 1.0.2 (2015-03-16): Improved the speed of toggling a pin's output value.
 * 1.0.1 (2015-01-06): Introduced some casts to fix compiler warnings.
