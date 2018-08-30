@@ -225,9 +225,17 @@ error: impossible constraint in 'asm'
 
 This is because the pin number is checked at compile time and must be valid.
 
+## Classes
+
+This classes provided by this library are listed below:
+
+* FastGPIO::Pin
+* FastGPIO::PinLoan
+
 ## Documentation
 
-For complete documentation of this library, including many features that were not mentioned here, see [the FastGPIO.h file documentation](https://pololu.github.io/fastgpio-arduino/FastGPIO_8h.html) from https://pololu.github.io/fastgpio-arduino.
+For complete documentation, see https://pololu.github.io/fastgpio-arduino.
+If you are already on that page, then click on the links in the "Classes" section above.
 
 ## Version history
 
