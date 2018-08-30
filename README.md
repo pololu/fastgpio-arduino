@@ -227,7 +227,7 @@ This is because the pin number is checked at compile time and must be valid.
 
 ## Documentation
 
-For complete documentation of this library, including many features that were not mentioned here, see [the FastGPIO.h file documentation](https://pololu.github.io/fastgpio-arduino/_fast_g_p_i_o_8h.html) from https://pololu.github.io/fastgpio-arduino.
+For complete documentation of this library, including many features that were not mentioned here, see [the FastGPIO.h file documentation](https://pololu.github.io/fastgpio-arduino/FastGPIO_8h.html) from https://pololu.github.io/fastgpio-arduino.
 
 ## Version history
 
