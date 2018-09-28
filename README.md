@@ -227,7 +227,7 @@ This is because the pin number is checked at compile time and must be valid.
 
 ## Classes
 
-This classes provided by this library are listed below:
+The classes provided by this library are listed below:
 
 * FastGPIO::Pin
 * FastGPIO::PinLoan
