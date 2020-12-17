@@ -1,0 +1,4 @@
+only_boards:
+  - arduino:avr:micro
+  - arduino:avr:uno
+  - arduino:avr:yun

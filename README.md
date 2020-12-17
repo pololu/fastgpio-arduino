@@ -2,7 +2,6 @@
 
 Version: 2.1.0 <br>
 Release date: 2018-02-27 <br>
-[![Build Status](https://travis-ci.org/pololu/fastgpio-arduino.svg?branch=master)](https://travis-ci.org/pololu/fastgpio-arduino) <br>
 [www.pololu.com](https://www.pololu.com/)
 
 ## Summary
