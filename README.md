@@ -1,7 +1,5 @@
 # FastGPIO library for Arduino
 
-Version: 2.1.0 <br>
-Release date: 2018-02-27 <br>
 [www.pololu.com](https://www.pololu.com/)
 
 ## Summary
@@ -26,7 +24,11 @@ The Arduino GPIO functions automatically turn off a pin's PWM function when acce
 
 This library is designed to work with the Arduino IDE versions 1.0.x, 1.5.x, 1.6.x, and later, and will probably not work with earlier versions.
 
-This library currently supports any board based on the ATmega328PB, ATmega328P, or ATmega32U4.
+This library currently supports any board based on these AVRs:
+
+- ATmega48PB, ATmega88PB, ATmega168PB, ATmega328PB
+- ATmega48, ATmega48P, ATmega88, ATmega88P, ATmega168, ATmega168P, ATmega328, ATmega328P
+- ATmega16U4, ATmega32U4
 
 ## Getting started
 
@@ -238,6 +240,8 @@ If you are already on that page, then click on the links in the "Classes" sectio
 
 ## Version history
 
+* 2.2.0 (2023-08-28): Added support for some chips with the same pinout as already-supported chips:
+  ATmega48PB, ATmega88PB, ATmega168PB, ATmega48, ATmega48P, ATmega88, ATmega88P, ATmega16U4.
 * 2.1.0 (2018-02-27): Added support for the ATmega328PB.
 * 2.0.0 (2016-08-19): Updated library to work with the Arduino Library Manager.
 * 1.0.2 (2015-03-16): Improved the speed of toggling a pin's output value.
