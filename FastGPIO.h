@@ -194,7 +194,7 @@ namespace FastGPIO
 #define IO_C6 20
 #define IO_NONE 21
 
-#elif defined(__AVR_ATmega32U4__)
+#elif defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
 
     const IOStruct pinStructs[] = {
         _FG_PIN(D, 2),
